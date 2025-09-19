@@ -1,26 +1,64 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Artikel - BeritaCoding</title>
-</head>
+<?= $this->include('_partials/head') ?>
+
 <body>
-    <h1>Daftar Artikel</h1>
+    <?= $this->include('_partials/navbar') ?>
     
-    <?php if (!empty($articles)): ?>
-        <ul>
-            <?php foreach ($articles as $article): ?>
-                <li>
-                    <h3><a href="/article/<?= $article['title'] ?>"><?= $article['title'] ?></a></h3>
-                    <p><?= $article['content'] ?></p>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else: ?>
-        <p>Tidak ada artikel yang tersedia saat ini.</p>
-    <?php endif; ?>
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Daftar Artikel</h1>
+                <p>Kumpulan artikel terbaru seputar programming dan teknologi</p>
+            </div>
+            
+            <div class="articles-section">
+                <?php if (!empty($articles)): ?>
+                    <div class="articles-grid">
+                        <?php foreach ($articles as $article): ?>
+                            <article class="article-card">
+                                <div class="article-header">
+                                    <h3 class="article-title">
+                                        <a href="/article/<?= esc($article['slug'] ?? $article['title']) ?>"><?= esc($article['title']) ?></a>
+                                    </h3>
+                                    <div class="article-meta">
+                                        <span class="article-date"><?= date('d M Y', strtotime($article['created_at'] ?? 'now')) ?></span>
+                                        <span class="article-author">By <?= esc($article['author'] ?? 'Admin') ?></span>
+                                    </div>
+                                </div>
+                                <div class="article-content">
+                                    <p><?= esc(substr($article['content'], 0, 150)) ?>...</p>
+                                </div>
+                                <div class="article-footer">
+                                    <a href="/article/<?= esc($article['slug'] ?? $article['title']) ?>" class="btn btn-primary">Baca Selengkapnya</a>
+                                    <div class="article-tags">
+                                        <?php if (!empty($article['tags'])): ?>
+                                            <?php foreach (explode(',', $article['tags']) as $tag): ?>
+                                                <span class="tag"><?= esc(trim($tag)) ?></span>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <span class="tag">Programming</span>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </article>
+                        <?php endforeach; ?>
+                    </div>
+                <?php else: ?>
+                    <div class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <h3>Belum Ada Artikel</h3>
+                        <p>Tidak ada artikel yang tersedia saat ini. Silakan kembali lagi nanti!</p>
+                        <a href="<?= site_url('/') ?>" class="btn btn-primary">Kembali ke Beranda</a>
+                    </div>
+                <?php endif; ?>
+            </div>
+            
+            <!-- Pagination (jika diperlukan) -->
+            <div class="pagination-wrapper">
+                <!-- Pagination akan ditambahkan di sini jika diperlukan -->
+            </div>
+        </div>
+    </main>
     
-    <p><a href="/">Kembali ke Halaman Utama</a></p>
+    <?= $this->include('_partials/footer') ?>
 </body>
 </html>

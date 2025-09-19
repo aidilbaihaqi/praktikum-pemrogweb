@@ -11,5 +11,5 @@ $routes->get('/contact', 'Home::contact');
 $routes->post('/contact', 'Home::submitContact');
 
 // Article routes
-$routes->get('/article', 'Article::index');
-$routes->get('/article/(:any)', 'Article::show/$1');
+$routes->get('/article', 'Home::article');
+$routes->get('/article/(:any)', 'Home::articleDetail/$1');
