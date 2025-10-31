@@ -11,5 +11,7 @@ $routes->get('/contact', 'Home::contact');
 $routes->post('/contact', 'Home::submitContact');
 
 // Article routes
-$routes->get('/article', 'Home::article');
-$routes->get('/article/(:any)', 'Home::articleDetail/$1');
+$routes->get('/artikel', 'Article::index');
+$routes->get('/artikel/cari', 'Article::search');
+$routes->get('/artikel/kategori/(:segment)', 'Article::category/$1');
+$routes->get('/artikel/(:segment)', 'Article::show/$1');

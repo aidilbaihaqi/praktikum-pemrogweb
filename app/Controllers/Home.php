@@ -2,15 +2,31 @@
 
 namespace App\Controllers;
 
+use App\Models\Article;
+use App\Models\Category;
+
 class Home extends BaseController
 {
+    protected $articleModel;
+    protected $categoryModel;
+
+    public function __construct()
+    {
+        $this->articleModel = new Article();
+        $this->categoryModel = new Category();
+    }
+
     public function index(): string
     {
+        // Ambil artikel terbaru dari database
+        $articles = $this->articleModel->getPublishedArticles(6);
+        
         $data = [
             'meta' => [
                 'title' => 'Beranda - BeritaCoding',
                 'description' => 'Portal berita dan tutorial coding terbaru untuk developer Indonesia'
-            ]
+            ],
+            'articles' => $articles
         ];
         return view('home', $data);
     }
