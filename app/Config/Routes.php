@@ -37,6 +37,17 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->delete('/profile/avatar', 'Profile::deleteAvatar');
 });
 
+// Dashboard routes (only for authenticated users)
+$routes->group('dashboard', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'Dashboard::index');
+    $routes->get('create', 'Dashboard::create');
+    $routes->post('store', 'Dashboard::store');
+    $routes->get('edit/(:num)', 'Dashboard::edit/$1');
+    $routes->put('update/(:num)', 'Dashboard::update/$1');
+    $routes->delete('delete/(:num)', 'Dashboard::delete/$1');
+    $routes->post('toggle-status/(:num)', 'Dashboard::toggleStatus/$1');
+});
+
 // Test route for session debugging (accessible for everyone)
 $routes->get('/test-session', function() {
     return view('test_session');

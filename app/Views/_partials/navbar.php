@@ -28,6 +28,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="<?= site_url('/profile') ?>" class="dropdown-link">Profil</a></li>
+                        <li><a href="<?= site_url('/dashboard') ?>" class="dropdown-link">Dashboard</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a href="<?= site_url('/logout') ?>" class="dropdown-link">Logout</a></li>
                     </ul>
